@@ -9,6 +9,8 @@ const getRandom = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+getRandom(4, 5);
+
 // console.log('Твое целое число: ' + getRandom(4, 5));
 
 // Вернет дробное число из диапазона включительно.
@@ -19,5 +21,7 @@ const getRandomCoordinates = (min, max, digits = 1) => {
   }
   return (Math.random() * (max - min) + min).toFixed(digits);
 }
+
+getRandomCoordinates(4, 5);
 
 // console.log('Твое дробное число: ' + getRandomCoordinates(4, 5));
