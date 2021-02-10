@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Вернет целое число из диапазона включительно
  * @param {number} min Любое положительное число
@@ -83,15 +81,22 @@ const DESCRIPTIONS = ['На первых этапах, программиров�
 const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg.'];
 const ADVERTS_LENGTH = 10
 
+/**
+ * Сохдает произвольный объект недвижимости - объявление рядом.
+ * @param {null} Не принимает
+ * @return {object} object
+ */
 const createAdvert = () => {
+  const x = getRandomCoordinates(35.65000, 35.70000, 5);
+  const y = getRandomCoordinates(139.70000, 139.80000, 5);
   return {
     author: {
       avatar: 'img/avatars/user0' + getRandom(1, 8) + '.png',
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: location.x + ', ' + location.y,
-      price: getRandom(1000, 25000) + '$ ',
+      address: x + ', ' + y,
+      price: getRandom(1000, 25000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandom(1, 10),
       guests: getRandom(1, 20),
@@ -102,8 +107,8 @@ const createAdvert = () => {
       photos: getRandomArrayElements(PHOTOS),
     },
     location: {
-      x: getRandomCoordinates(35.65000, 35.70000, 5),
-      y: getRandomCoordinates(139.70000, 139.80000, 5),
+      x: x,
+      y: y,
     },
   };
 };
