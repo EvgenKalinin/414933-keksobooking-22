@@ -1,10 +1,3 @@
-const ADVERTS_LENGTH = 10
-
-/* Массив из произвольных объектов недвижимости*/
-const adverts = new Array(ADVERTS_LENGTH).fill(null).map(() => createAdvert());
-adverts
-
-//__________________________________
 import {getRandom, getRandomCoordinates, getRandomArrayElement, getRandomArrayElements} from './utils.js'
 
 const TITLES = ['Хижина провидца', 'Преобразователь скелетов', 'Утопия драконов', 'Улей змиев', 'Мавзолей личий', 'Логово воров', 'Хижина мага', 'Чердак гарпий', 'Пещера циклопа'];
@@ -12,7 +5,8 @@ const TYPES = ['palace', 'flat', 'house', 'bungalow'];
 const CHECK_TIME = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const DESCRIPTIONS = ['На первых этапах, программирование приносит немного боли. "Иди в IT" - говорили они - "У нас здорово!"...', 'Если мыши вас не смущают, то вы по адресу', 'На флеэту есть старинный патифон, железная кровать и телефон', 'Уже накрыт огромный стол. Зажарен чудный поросёнок. И славный троль несет, добротного пивца бочонок.', 'Белые обои. Черная посуда.', 'Старинные интерьеры. Приглушенное освещение. Одним словом на любителя.']
-const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg.'];
+const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+const ADVERTS_LENGTH = 1;
 
 /**
  * Создает произвольный объект недвижимости - объявление рядом.
@@ -46,4 +40,8 @@ const createAdvert = () => {
   };
 };
 
-export {createAdvert};
+/* Массив из произвольных объектов недвижимости*/
+const adverts = new Array(ADVERTS_LENGTH).fill(null).map(() => createAdvert());
+adverts
+
+export {adverts};
