@@ -38,19 +38,37 @@ const getRandomArrayElement = (array) => {
 }
 
 /**
- * Вернет случайные, не повторяющиеся элементы массива
+ * Вернет случайные, не повторяющиеся элементы массива.
+ * Если на вход передать пустой массив, вернет пустой массив.
  * @param {*} array
  * @return {*}
  */
 const getRandomArrayElements = (array) => {
-  let iterations = getRandom(0, array.length-1);
   let randomElements = [];
-  array = shuffleArray(array);
-  for (let i = 0; i <= iterations; i++) {
-    randomElements[i] = array[i];
+  if ((array.length-1) <= 0) {
+    return randomElements;
+  } else {
+    let iterations = getRandom(0, array.length-1);
+    array = shuffleArray(array);
+    for (let i = 0; i <= iterations; i++) {
+      randomElements[i] = array[i];
+    }
+    return randomElements;
   }
-  return randomElements;
+
 }
+
+// Вернет случайные, не повторяющиеся элементы массива.
+// !!!Не сработатет если передать пустой массив!!!
+// const getRandomArrayElements = (array) => {
+//   let iterations = getRandom(0, array.length-1);
+//   let randomElements = [];
+//   array = shuffleArray(array);
+//   for (let i = 0; i <= iterations; i++) {
+//     randomElements[i] = array[i];
+//   }
+//   return randomElements;
+// }
 
 /**
  * Перемешает элементы массива
