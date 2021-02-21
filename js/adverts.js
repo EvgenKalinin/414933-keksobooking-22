@@ -129,8 +129,8 @@ const createCards = (similarAdvert) => {
   return advertCards
 };
 
-const addCards = (cards) => {
-  advertsList.appendChild(cards);
+const addCard = (card) => {
+  advertsList.appendChild(card);
 };
 
-export {createCards, addCards};
+export {createCards, addCard};
