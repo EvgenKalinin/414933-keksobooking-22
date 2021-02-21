@@ -1,32 +1,46 @@
 const advertsList = document.querySelector('.map__canvas')
 const advertTemplate = document.querySelector('#card')
-  .content;
+  .content.querySelector('.popup');
 
 
 const createCards = (similarAdvert) => {
+
+  const advertCards = [];
+
   similarAdvert.forEach((advert) => {
 
     const advertItem = advertTemplate.cloneNode(true);
 
     // Сопоставляет Английские и русские названия
     let advertType = '';
-    switch (advert.offer.type) {
-      case 'flat':
-        advertType = 'Квартира';
-        break;
+    const typeToTitle = {
+      palace: 'Дворец',
+      flat: 'Квартира',
+      house: 'Дом',
+      bungalow: 'Бунгало',
+    };
 
-      case 'palace':
-        advertType = 'Дворец';
-        break;
+    advertType = typeToTitle[advert.offer.type];
 
-      case 'house':
-        advertType = 'Дом';
-        break;
+    // Старое решеткие через switch
+    // let advertType = '';
+    // switch (advert.offer.type) {
+    //   case 'flat':
+    //     advertType = 'Квартира';
+    //     break;
 
-      case 'bungalow':
-        advertType = 'Бунгало';
-        break;
-    }
+    //   case 'palace':
+    //     advertType = 'Дворец';
+    //     break;
+
+    //   case 'house':
+    //     advertType = 'Дом';
+    //     break;
+
+    //   case 'bungalow':
+    //     advertType = 'Бунгало';
+    //     break;
+    // }
 
 
     advertItem.querySelector('.popup__avatar').src = advert.author.avatar;
@@ -71,7 +85,7 @@ const createCards = (similarAdvert) => {
     const featuresList = advertItem.querySelector('.popup__features'); //Список Фичей
 
     if (!advert.offer.features) {
-      featuresList.innerHTML = '';
+      featuresList.remove()
     } else {
       featuresList.innerHTML = '';
 
@@ -91,7 +105,7 @@ const createCards = (similarAdvert) => {
     const photoFragment = document.createDocumentFragment(); // Создаём "коробочку"
 
     if (!advert.offer.photos) {
-      photos.removeChild(photoItem);
+      photos.remove();
     } else {
       photos.removeChild(photoItem);
 
@@ -108,12 +122,15 @@ const createCards = (similarAdvert) => {
 
       photos.appendChild(photoFragment); // отрисовываем всё из "коробочки"
 
-
-      advertsList.appendChild(advertItem);
+      advertCards.push(advertItem);
     }
 
   });
-
+  return advertCards
 };
 
-export {createCards};
+const addCards = (cards) => {
+  advertsList.appendChild(cards);
+};
+
+export {createCards, addCards};
