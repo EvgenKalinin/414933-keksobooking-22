@@ -1,4 +1,4 @@
-const advertsList = document.querySelector('.map__canvas')
+// const advertsList = document.querySelector('.map__canvas')
 const advertTemplate = document.querySelector('#card')
   .content.querySelector('.popup');
 
@@ -129,8 +129,8 @@ const createCards = (similarAdvert) => {
   return advertCards
 };
 
-const addCard = (card) => {
-  advertsList.appendChild(card);
-};
+// const addCard = (card) => {
+//   advertsList.appendChild(card);
+// };
 
-export {createCards, addCard};
+export {createCards/**, addCard */};

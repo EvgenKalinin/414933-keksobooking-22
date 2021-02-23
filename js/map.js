@@ -47,3 +47,22 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
+
+const mainMarkerIcon = L.icon({
+  iconUrl: '../img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
+
+const mainMarker = L.marker(
+  {
+    lat: 35.686427,
+    lng: 139.753637,
+  },
+  {
+    draggable: true,
+    icon: mainMarkerIcon,
+  },
+);
+
+mainMarker.addTo(map);
