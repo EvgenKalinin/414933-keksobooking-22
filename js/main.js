@@ -1,3 +1,7 @@
-import {adverts} from './data.js';
+import { createAdverts } from './data.js';
+import { createCards, addCard } from './adverts.js';
 
-adverts
+const similarAdvert = createAdverts();
+const cards = createCards(similarAdvert);
+
+addCard(cards[0]);
