@@ -5,4 +5,4 @@ import './map.js';
 const similarAdvert = createAdverts();
 const cards = createCards(similarAdvert);
 
-addCard(cards[0]);
+// addCard(cards[0]);

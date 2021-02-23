@@ -17,3 +17,33 @@ for (let select of filtersFormSelects) {
 }
 
 filtersFormFieldset.setAttribute('disabled', 'disabled');
+
+/** Добавляет карту и активирует форму */
+const map = L.map('map-canvas')
+  .on('load', () => {
+
+    adForm.classList.remove('ad-form--disabled');
+
+    for (let fieldset of adFormFieldsets) {
+      fieldset.removeAttribute('disabled', 'disabled');
+    }
+
+    filtersForm.classList.remove('map__filters--disabled');
+
+    for (let select of filtersFormSelects) {
+      select.removeAttribute('disabled', 'disabled');
+    }
+
+    filtersFormFieldset.removeAttribute('disabled', 'disabled');
+  })
+  .setView({
+    lat: 35.686427,
+    lng: 139.753637,
+  }, 12);
+
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(map);
