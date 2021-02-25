@@ -1,7 +1,7 @@
+/* global L:readonly */
 import { createAdverts } from './data.js';
-import { createCards/**, addCard*/ } from './adverts.js';
+import { createCard } from './adverts.js';
 const similarAdverts = createAdverts();
-console.log(similarAdverts);
 
 
 const adForm = document.querySelector('.ad-form');
@@ -56,7 +56,7 @@ L.tileLayer(
   },
 ).addTo(map);
 
-/**Добавляет главный маркер на карту */
+//Добавляет главный маркер на карту
 const mainMarkerIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
   iconSize: [52, 52],
@@ -96,8 +96,6 @@ mainMarker.on('moveend', (evt) => {
 
 
 /**Добавляет похожие маркеры на карту */
-let cards = createCards(similarAdverts);
-
 similarAdverts.forEach((advert) => {
   const markerIcon = L.icon({
     iconUrl: '../img/pin.svg',
@@ -118,58 +116,6 @@ similarAdverts.forEach((advert) => {
   marker
     .addTo(map)
     .bindPopup(
-      cards[0],
+      createCard(advert),
     );
 });
-
-console.log(createCards(similarAdverts));
-
-// points.forEach((point) => {
-//   const {lat, lng} = point;
-
-//   const icon = L.icon({
-//     iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-//     iconSize: [40, 40],
-//     iconAnchor: [20, 40],
-//   });
-
-//   const marker = L.marker(
-//     {
-//       lat,
-//       lng,
-//     },
-//     {
-//       icon,
-//     },
-//   );
-
-//   marker
-//     .addTo(map)
-//     .bindPopup(
-//       createCustomPopup(point),
-//     );
-// });
-
-// similarAdverts.forEach ((advert) => {
-//   const markerIcon = L.icon({
-//     iconUrl: '../img/pin.svg',
-//     iconSize: [40, 40],
-//     iconAnchor: [20, 40],
-//   });
-
-//   const marker = L.marker(
-//     {
-//       lat: advert.location.lat,
-//       lng: advert.location.lng,
-//     },
-//     {
-//       icon: markerIcon,
-//     },
-//   );
-
-//   marker
-//     .addTo(map)
-//     .bindPopup(
-//       advert,
-//     );
-// });
