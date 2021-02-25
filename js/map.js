@@ -1,3 +1,9 @@
+import { createAdverts } from './data.js';
+import { createCards/**, addCard*/ } from './adverts.js';
+const similarAdverts = createAdverts();
+console.log(similarAdverts);
+
+
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const filtersForm = document.querySelector('.map__filters');
@@ -87,3 +93,83 @@ mainMarker.on('moveend', (evt) => {
   let currentY = evt.target.getLatLng().lng.toFixed(5);
   adFormAddress.value = `${currentX}, ${currentY}`;
 });
+
+
+/**Добавляет похожие маркеры на карту */
+let cards = createCards(similarAdverts);
+
+similarAdverts.forEach((advert) => {
+  const markerIcon = L.icon({
+    iconUrl: '../img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+
+  const marker = L.marker(
+    {
+      lat: advert.location.lat,
+      lng: advert.location.lng,
+    },
+    {
+      icon: markerIcon,
+    },
+  );
+
+  marker
+    .addTo(map)
+    .bindPopup(
+      cards[0],
+    );
+});
+
+console.log(createCards(similarAdverts));
+
+// points.forEach((point) => {
+//   const {lat, lng} = point;
+
+//   const icon = L.icon({
+//     iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+//     iconSize: [40, 40],
+//     iconAnchor: [20, 40],
+//   });
+
+//   const marker = L.marker(
+//     {
+//       lat,
+//       lng,
+//     },
+//     {
+//       icon,
+//     },
+//   );
+
+//   marker
+//     .addTo(map)
+//     .bindPopup(
+//       createCustomPopup(point),
+//     );
+// });
+
+// similarAdverts.forEach ((advert) => {
+//   const markerIcon = L.icon({
+//     iconUrl: '../img/pin.svg',
+//     iconSize: [40, 40],
+//     iconAnchor: [20, 40],
+//   });
+
+//   const marker = L.marker(
+//     {
+//       lat: advert.location.lat,
+//       lng: advert.location.lng,
+//     },
+//     {
+//       icon: markerIcon,
+//     },
+//   );
+
+//   marker
+//     .addTo(map)
+//     .bindPopup(
+//       advert,
+//     );
+// });

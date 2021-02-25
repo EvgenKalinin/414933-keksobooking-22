@@ -34,8 +34,8 @@ const createAdvert = () => {
       photos: getRandomArrayElements(PHOTOS),
     },
     location: {
-      x: x,
-      y: y,
+      lat: x,
+      lng: y,
     },
   };
 };

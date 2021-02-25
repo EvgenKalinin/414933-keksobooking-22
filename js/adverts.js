@@ -129,6 +129,7 @@ const createCards = (similarAdvert) => {
   return advertCards
 };
 
+
 // const addCard = (card) => {
 //   advertsList.appendChild(card);
 // };
