@@ -40,12 +40,6 @@ const createAdvert = () => {
   };
 };
 
-/* Массив из произвольных объектов недвижимости*/
-// const adverts = new Array(ADVERTS_LENGTH).fill(null).map(() => createAdvert());
-// adverts
-
-// export {adverts};
-
 const createAdverts = () => {
   return new Array(ADVERTS_LENGTH).fill(null).map(() => createAdvert());
 };
