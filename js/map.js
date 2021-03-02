@@ -1,18 +1,17 @@
 /* global L:readonly */
-// import { createAdverts } from './data.js';
 import { createCard } from './adverts.js';
-// const similarAdverts = createAdverts();
 
 
-// const adForm = document.querySelector('.ad-form');
-// const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
-// const filtersForm = document.querySelector('.map__filters');
-// const filtersFormSelects = document.querySelectorAll('.map__filters select');
-// const filtersFormFieldset = document.querySelector('#housing-features');
-// const CITY_CENTER = [35.686427, 139.753637];
+const adForm = document.querySelector('.ad-form');
+const adFormAddress = document.querySelector('#address');
+const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
+const filtersForm = document.querySelector('.map__filters');
+const filtersFormSelects = document.querySelectorAll('.map__filters select');
+const filtersFormFieldset = document.querySelector('#housing-features');
+const CITY_CENTER = [35.686427, 139.753637];
 
 /**Деактивирует форму */
-const disactivateForm = (adForm, adFormFieldsets, filtersForm, filtersFormSelects, filtersFormFieldset) => {
+const disactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
 
   for (let fieldset of adFormFieldsets) {
@@ -28,37 +27,50 @@ const disactivateForm = (adForm, adFormFieldsets, filtersForm, filtersFormSelect
   filtersFormFieldset.setAttribute('disabled', 'disabled');
 };
 
-/**Активирует форму */
-const activateForm = (adForm, adFormFieldsets, filtersForm, filtersFormSelects, filtersFormFieldset) => {
-  adForm.classList.remove('ad-form--disabled');
+// /**Активирует форму */
+// const activateForm = () => {
+//   adForm.classList.remove('ad-form--disabled');
 
-  for (let fieldset of adFormFieldsets) {
-    fieldset.removeAttribute('disabled', 'disabled');
-  }
+//   for (let fieldset of adFormFieldsets) {
+//     fieldset.removeAttribute('disabled', 'disabled');
+//   }
 
-  filtersForm.classList.remove('map__filters--disabled');
+//   filtersForm.classList.remove('map__filters--disabled');
 
-  for (let select of filtersFormSelects) {
-    select.removeAttribute('disabled', 'disabled');
-  }
+//   for (let select of filtersFormSelects) {
+//     select.removeAttribute('disabled', 'disabled');
+//   }
 
-  filtersFormFieldset.removeAttribute('disabled', 'disabled');
-}
+//   filtersFormFieldset.removeAttribute('disabled', 'disabled');
+// }
+
+// const formActivator = activateForm();
+let map;
 
 /**
  * Добавляет карту и активирует форму
- * @param onLoadFunc Функция при загрузке карты.
- * @param coordinates Массив из 2х координат lat & lng
 */
-const initMap = (onLoadFunc, coordinates) => {
-  const map = L.map('map-canvas')
+const initMap = () => {
+  map = L.map('map-canvas')
     .on('load', () => {
-      onLoadFunc;
+      adForm.classList.remove('ad-form--disabled');
+
+      for (let fieldset of adFormFieldsets) {
+        fieldset.removeAttribute('disabled', 'disabled');
+      }
+
+      filtersForm.classList.remove('map__filters--disabled');
+
+      for (let select of filtersFormSelects) {
+        select.removeAttribute('disabled', 'disabled');
+      }
+
+      filtersFormFieldset.removeAttribute('disabled', 'disabled');
     })
 
     .setView({
-      lat: coordinates[0],
-      lng: coordinates[1],
+      lat: CITY_CENTER[0],
+      lng: CITY_CENTER[1],
     }, 12);
 
   L.tileLayer(
@@ -67,46 +79,7 @@ const initMap = (onLoadFunc, coordinates) => {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
-  return map;
-};
 
-// const map = L.map('map-canvas')
-//     .on('load', () => {
-
-//       adForm.classList.remove('ad-form--disabled');
-
-//       for (let fieldset of adFormFieldsets) {
-//         fieldset.removeAttribute('disabled', 'disabled');
-//       }
-
-//       filtersForm.classList.remove('map__filters--disabled');
-
-//       for (let select of filtersFormSelects) {
-//         select.removeAttribute('disabled', 'disabled');
-//       }
-
-//       filtersFormFieldset.removeAttribute('disabled', 'disabled');
-//     })
-
-//     .setView({
-//       lat: CITY_CENTER[0],
-//       lng: CITY_CENTER[1],
-//     }, 12);
-
-//   L.tileLayer(
-//     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-//     {
-//       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-//     },
-//   ).addTo(map);
-
-
-
-/**
- * Добавляет главный маркер на карту
- * @param coordinates Массив из 2х координат lat & lng
-*/
-const addMainMarker = (coordinates, map) => {
   const mainMarkerIcon = L.icon({
     iconUrl: '../img/main-pin.svg',
     iconSize: [52, 52],
@@ -115,8 +88,8 @@ const addMainMarker = (coordinates, map) => {
 
   const mainMarker = L.marker(
     {
-      lat: coordinates[0],
-      lng: coordinates[1],
+      lat: CITY_CENTER[0],
+      lng: CITY_CENTER[1],
     },
     {
       draggable: true,
@@ -125,8 +98,44 @@ const addMainMarker = (coordinates, map) => {
   );
 
   mainMarker.addTo(map);
-  return mainMarker;
+
+  adFormAddress.value = `${CITY_CENTER[0].toFixed(5)}, ${CITY_CENTER[1].toFixed(5)}`;
+
+  mainMarker.on('moveend', (evt) => {
+    let currentX = evt.target.getLatLng().lat.toFixed(5);
+    let currentY = evt.target.getLatLng().lng.toFixed(5);
+    adFormAddress.value = `${currentX}, ${currentY}`;
+  });
+
+
+  return map;
 };
+
+// /**
+//  * Добавляет главный маркер на карту
+//  * @param coordinates Массив из 2х координат lat & lng
+// */
+// const addMainMarker = (coordinates, map) => {
+//   const mainMarkerIcon = L.icon({
+//     iconUrl: '../img/main-pin.svg',
+//     iconSize: [52, 52],
+//     iconAnchor: [26, 52],
+//   });
+
+//   const mainMarker = L.marker(
+//     {
+//       lat: coordinates[0],
+//       lng: coordinates[1],
+//     },
+//     {
+//       draggable: true,
+//       icon: mainMarkerIcon,
+//     },
+//   );
+
+//   mainMarker.addTo(map);
+//   return mainMarker;
+// };
 
 // const mainMarkerIcon = L.icon({
 //   iconUrl: '../img/main-pin.svg',
@@ -153,21 +162,21 @@ const addMainMarker = (coordinates, map) => {
 //   console.log(evt.target.getLatLng());
 // });
 
-/**
- * Добавляем координаты остановки маркера в поле адрес
- * @param addressField Поле адреса из формы
- * @param coordinates Начальные координаты маркера
- * @param mainMarker Целевой маркер
- */
-const catchMainMarkerCoordinates = (addressField, coordinates, mainMarker) => {
-  addressField.value = `${coordinates[0].toFixed(5)}, ${coordinates[1].toFixed(5)}`;
+// /**
+//  * Добавляем координаты остановки маркера в поле адрес
+//  * @param addressField Поле адреса из формы
+//  * @param coordinates Начальные координаты маркера
+//  * @param mainMarker Целевой маркер
+//  */
+// const catchMainMarkerCoordinates = (addressField, coordinates, mainMarker) => {
+//   addressField.value = `${coordinates[0].toFixed(5)}, ${coordinates[1].toFixed(5)}`;
 
-  mainMarker.on('moveend', (evt) => {
-    let currentX = evt.target.getLatLng().lat.toFixed(5);
-    let currentY = evt.target.getLatLng().lng.toFixed(5);
-    addressField.value = `${currentX}, ${currentY}`;
-  });
-}
+//   mainMarker.on('moveend', (evt) => {
+//     let currentX = evt.target.getLatLng().lat.toFixed(5);
+//     let currentY = evt.target.getLatLng().lng.toFixed(5);
+//     addressField.value = `${currentX}, ${currentY}`;
+//   });
+// }
 
 // adFormAddress.value = `${CITY_CENTER[0].toFixed(5)}, ${CITY_CENTER[1].toFixed(5)}`;
 
@@ -179,7 +188,7 @@ const catchMainMarkerCoordinates = (addressField, coordinates, mainMarker) => {
 
 
 /**Добавляет похожие маркеры на карту */
-const addSimilarMarkers = (similarAdverts, map) => {
+const addSimilarMarkers = (similarAdverts) => {
   similarAdverts.forEach((advert) => {
     const markerIcon = L.icon({
       iconUrl: '../img/pin.svg',
@@ -230,4 +239,4 @@ const addSimilarMarkers = (similarAdverts, map) => {
 //     );
 // });
 
-export {disactivateForm, activateForm, initMap, addMainMarker, catchMainMarkerCoordinates, addSimilarMarkers};
+export {disactivateForm, initMap, addSimilarMarkers};
