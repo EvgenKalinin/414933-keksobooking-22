@@ -15,57 +15,40 @@ const disactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
 
   for (let fieldset of adFormFieldsets) {
-    fieldset.setAttribute('disabled', 'disabled');
+    fieldset.disabled = true;
   }
 
   filtersForm.classList.add('map__filters--disabled');
 
   for (let select of filtersFormSelects) {
-    select.setAttribute('disabled', 'disabled');
+    select.disabled = true;
   }
 
-  filtersFormFieldset.setAttribute('disabled', 'disabled');
+  filtersFormFieldset.disabled = true;
 };
 
-// /**Активирует форму */
-// const activateForm = () => {
-//   adForm.classList.remove('ad-form--disabled');
-
-//   for (let fieldset of adFormFieldsets) {
-//     fieldset.removeAttribute('disabled', 'disabled');
-//   }
-
-//   filtersForm.classList.remove('map__filters--disabled');
-
-//   for (let select of filtersFormSelects) {
-//     select.removeAttribute('disabled', 'disabled');
-//   }
-
-//   filtersFormFieldset.removeAttribute('disabled', 'disabled');
-// }
-
-// const formActivator = activateForm();
-let map;
 
 /**
  * Добавляет карту и активирует форму
 */
+let map;
+
 const initMap = () => {
   map = L.map('map-canvas')
     .on('load', () => {
       adForm.classList.remove('ad-form--disabled');
 
       for (let fieldset of adFormFieldsets) {
-        fieldset.removeAttribute('disabled', 'disabled');
+        fieldset.disabled = false;
       }
 
       filtersForm.classList.remove('map__filters--disabled');
 
       for (let select of filtersFormSelects) {
-        select.removeAttribute('disabled', 'disabled');
+        select.disabled = false;
       }
 
-      filtersFormFieldset.removeAttribute('disabled', 'disabled');
+      filtersFormFieldset.disabled = false;
     })
 
     .setView({
@@ -111,81 +94,6 @@ const initMap = () => {
   return map;
 };
 
-// /**
-//  * Добавляет главный маркер на карту
-//  * @param coordinates Массив из 2х координат lat & lng
-// */
-// const addMainMarker = (coordinates, map) => {
-//   const mainMarkerIcon = L.icon({
-//     iconUrl: '../img/main-pin.svg',
-//     iconSize: [52, 52],
-//     iconAnchor: [26, 52],
-//   });
-
-//   const mainMarker = L.marker(
-//     {
-//       lat: coordinates[0],
-//       lng: coordinates[1],
-//     },
-//     {
-//       draggable: true,
-//       icon: mainMarkerIcon,
-//     },
-//   );
-
-//   mainMarker.addTo(map);
-//   return mainMarker;
-// };
-
-// const mainMarkerIcon = L.icon({
-//   iconUrl: '../img/main-pin.svg',
-//   iconSize: [52, 52],
-//   iconAnchor: [26, 52],
-// });
-
-// const mainMarker = L.marker(
-//   {
-//     lat: CITY_CENTER[0],
-//     lng: CITY_CENTER[1],
-//   },
-//   {
-//     draggable: true,
-//     icon: mainMarkerIcon,
-//   },
-// );
-
-// mainMarker.addTo(map);
-
-/**Получаем координаты маркера */
-
-// mainMarker.on('moveend', (evt) => {
-//   console.log(evt.target.getLatLng());
-// });
-
-// /**
-//  * Добавляем координаты остановки маркера в поле адрес
-//  * @param addressField Поле адреса из формы
-//  * @param coordinates Начальные координаты маркера
-//  * @param mainMarker Целевой маркер
-//  */
-// const catchMainMarkerCoordinates = (addressField, coordinates, mainMarker) => {
-//   addressField.value = `${coordinates[0].toFixed(5)}, ${coordinates[1].toFixed(5)}`;
-
-//   mainMarker.on('moveend', (evt) => {
-//     let currentX = evt.target.getLatLng().lat.toFixed(5);
-//     let currentY = evt.target.getLatLng().lng.toFixed(5);
-//     addressField.value = `${currentX}, ${currentY}`;
-//   });
-// }
-
-// adFormAddress.value = `${CITY_CENTER[0].toFixed(5)}, ${CITY_CENTER[1].toFixed(5)}`;
-
-// mainMarker.on('moveend', (evt) => {
-//   let currentX = evt.target.getLatLng().lat.toFixed(5);
-//   let currentY = evt.target.getLatLng().lng.toFixed(5);
-//   adFormAddress.value = `${currentX}, ${currentY}`;
-// });
-
 
 /**Добавляет похожие маркеры на карту */
 const addSimilarMarkers = (similarAdverts) => {
@@ -213,30 +121,5 @@ const addSimilarMarkers = (similarAdverts) => {
       );
   });
 };
-
-
-// similarAdverts.forEach((advert) => {
-//   const markerIcon = L.icon({
-//     iconUrl: '../img/pin.svg',
-//     iconSize: [40, 40],
-//     iconAnchor: [20, 40],
-//   });
-
-//   const marker = L.marker(
-//     {
-//       lat: advert.location.lat,
-//       lng: advert.location.lng,
-//     },
-//     {
-//       icon: markerIcon,
-//     },
-//   );
-
-//   marker
-//     .addTo(map)
-//     .bindPopup(
-//       createCard(advert),
-//     );
-// });
 
 export {disactivateForm, initMap, addSimilarMarkers};
