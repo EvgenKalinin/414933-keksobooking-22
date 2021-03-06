@@ -54,7 +54,7 @@ const initMap = () => {
     .setView({
       lat: CITY_CENTER[0],
       lng: CITY_CENTER[1],
-    }, 12);
+    }, 10);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
