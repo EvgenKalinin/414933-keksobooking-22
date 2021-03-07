@@ -27,12 +27,10 @@ const disactivateForm = () => {
   filtersFormFieldset.disabled = true;
 };
 
-
+let map;
 /**
  * Добавляет карту и активирует форму
 */
-let map;
-
 const initMap = () => {
   map = L.map('map-canvas')
     .on('load', () => {

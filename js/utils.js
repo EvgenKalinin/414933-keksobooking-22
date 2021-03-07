@@ -1,4 +1,4 @@
-const MESSAGE_SHOW_TIME = 3000;
+const MESSAGE_SHOW_TIME = 5000;
 
 /**
  * Вернет целое число из диапазона включительно
@@ -132,6 +132,10 @@ const showErrorMessage = () => {
   });
 };
 
+/**
+ * Покажет передаваемое предупреждение вверху экрана
+ * @param {*} message передаваемое предупреждение
+ */
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;

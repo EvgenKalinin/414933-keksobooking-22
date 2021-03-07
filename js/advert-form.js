@@ -1,5 +1,10 @@
 const advertForm = document.querySelector('.ad-form');
 
+/**
+ * Отправляет данные формы на сервер.
+ * @param {*} onSuccess Выполнит в случае успеха.
+ * @param {*} onError Выполнит если получит ошибку от сервера.
+ */
 const setAdvertFormSubmit = (onSuccess, onError) => {
   advertForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
