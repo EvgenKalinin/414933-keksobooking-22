@@ -89,11 +89,7 @@ const initMap = () => {
     let currentY = evt.target.getLatLng().lng.toFixed(5);
     adFormAddress.value = `${currentX}, ${currentY}`;
   });
-
-
-  return map;
 };
-
 
 /**Добавляет похожие маркеры на карту */
 const addSimilarMarkers = (similarAdverts) => {

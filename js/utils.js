@@ -1,3 +1,5 @@
+const MESSAGE_SHOW_TIME = 3000;
+
 /**
  * Вернет целое число из диапазона включительно
  * @param {number} min Любое положительное число
@@ -58,18 +60,6 @@ const getRandomArrayElements = (array) => {
 
 }
 
-// Вернет случайные, не повторяющиеся элементы массива.
-// !!!Не сработатет если передать пустой массив!!!
-// const getRandomArrayElements = (array) => {
-//   let iterations = getRandom(0, array.length-1);
-//   let randomElements = [];
-//   array = shuffleArray(array);
-//   for (let i = 0; i <= iterations; i++) {
-//     randomElements[i] = array[i];
-//   }
-//   return randomElements;
-// }
-
 /**
  * Перемешает элементы массива
  * @param {*} array
@@ -85,4 +75,83 @@ const shuffleArray = (array) => {
   return array;
 }
 
-export {getRandom, getRandomCoordinates, getRandomArrayElement, getRandomArrayElements};
+/**
+ * Показывает сообщение об успешной отправке формы и сбрасывает введенные параметры.
+ */
+const showSuccessMessage = () => {
+  const main = document.querySelector('main');
+  const templateFragment = document.querySelector('#success').content;
+  const template = templateFragment.querySelector('div');
+  const fragment = document.createDocumentFragment();
+  const element = template.cloneNode(true);
+  fragment.appendChild(element);
+  main.appendChild(fragment);
+
+  const successMessage = document.querySelector('.success');
+
+  document.addEventListener('keydown', function(evt) {
+
+    if (evt.keyCode === 27) {
+      successMessage.remove();
+    }
+  });
+
+  document.addEventListener('click', function () {
+    successMessage.remove();
+  });
+
+  setTimeout(() => {
+    successMessage.remove();
+  }, MESSAGE_SHOW_TIME);
+};
+
+/**
+ * Показывает сообщение о НЕ успешной отправке формы и НЕ сбрасывает введенные параметры.
+ */
+const showErrorMessage = () => {
+  const main = document.querySelector('main');
+  const templateFragment = document.querySelector('#error').content;
+  const template = templateFragment.querySelector('div');
+  const fragment = document.createDocumentFragment();
+  const element = template.cloneNode(true);
+  fragment.appendChild(element);
+  main.appendChild(fragment);
+
+  const errorMessage = document.querySelector('.error');
+  const errorButton = document.querySelector('.error__button');
+
+  document.addEventListener('keydown', function(evt) {
+
+    if (evt.keyCode === 27) {
+      errorMessage.remove();
+    }
+  });
+
+  errorButton.addEventListener('click', function () {
+    errorMessage.remove();
+  });
+};
+
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '20px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.color = 'white';
+  alertContainer.style.backgroundColor = 'red';
+  alertContainer.style.opacity = '0.5';
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, MESSAGE_SHOW_TIME);
+}
+
+export {getRandom, getRandomCoordinates, getRandomArrayElement, getRandomArrayElements, showSuccessMessage, showErrorMessage, showAlert};

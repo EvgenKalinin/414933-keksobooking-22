@@ -1,6 +1,8 @@
 import { createAdverts } from './data.js';
+import {showSuccessMessage, showErrorMessage, showAlert} from './utils.js';
 import {disactivateForm, initMap, addSimilarMarkers} from './map.js';
-import './advert-form.js';
+import {getAdverts} from './api.js';
+import  {setAdvertFormSubmit} from './advert-form.js';
 // import { createCards/**, addCard*/ } from './adverts.js';
 
 // const cards = createCards(similarAdverts);
@@ -24,9 +26,24 @@ disactivateForm();
 
 initMap();
 
+getAdverts(addSimilarMarkers, showAlert)
+// fetch('https://22.javascript.pages.academy/keksobooking/data')
+//   .then((response) => {
+//     if (response.ok) {
+//       return response.json()
+//     }
 
-fetch('https://22.javascript.pages.academy/keksobooking/data')
-  .then((response) => response.json())
-  .then((advertsTest) => {
-    addSimilarMarkers (advertsTest); 
-  });
+//     throw new Error(`Что то пошло не так: ${response.status} ${response.statusText}`);
+//   })
+//   .then((advertsTest) => {
+//     addSimilarMarkers (advertsTest);
+//   })
+//   .catch((err) => {
+//     showAlert(err);
+//   });
+
+setAdvertFormSubmit(showSuccessMessage, showErrorMessage);
+
+
+// const alertMessage = 'Да это пиздец какой то!';
+// showAlert(alertMessage)
