@@ -1,14 +1,12 @@
-import { createAdverts } from './data.js';
+import {showSuccessMessage, showErrorMessage, showAlert} from './utils.js';
 import {disactivateForm, initMap, addSimilarMarkers} from './map.js';
-// import { createCards/**, addCard*/ } from './adverts.js';
-
-// const cards = createCards(similarAdverts);
-// cards
-// addCard(cards[0]);
+import {getAdverts} from './api.js';
+import {setAdvertFormSubmit} from './advert-form.js';
 
 disactivateForm();
 
-const similarAdverts = createAdverts();
-
 initMap();
-addSimilarMarkers (similarAdverts);
+
+getAdverts(addSimilarMarkers, showAlert);
+
+setAdvertFormSubmit(showSuccessMessage, showErrorMessage);

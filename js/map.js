@@ -27,12 +27,11 @@ const disactivateForm = () => {
   filtersFormFieldset.disabled = true;
 };
 
-
+let map;
+let mainMarker;
 /**
  * Добавляет карту и активирует форму
 */
-let map;
-
 const initMap = () => {
   map = L.map('map-canvas')
     .on('load', () => {
@@ -54,7 +53,7 @@ const initMap = () => {
     .setView({
       lat: CITY_CENTER[0],
       lng: CITY_CENTER[1],
-    }, 12);
+    }, 10);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -69,7 +68,7 @@ const initMap = () => {
     iconAnchor: [26, 52],
   });
 
-  const mainMarker = L.marker(
+  mainMarker = L.marker(
     {
       lat: CITY_CENTER[0],
       lng: CITY_CENTER[1],
@@ -90,10 +89,17 @@ const initMap = () => {
     adFormAddress.value = `${currentX}, ${currentY}`;
   });
 
-
-  return map;
 };
 
+/**
+ * Возвращает главный маркер в исходное положение
+ */
+const resetMainMarkerLatLng = () => {
+  let newLatLng = new L.LatLng(CITY_CENTER[0], CITY_CENTER[1]);
+  mainMarker.setLatLng(newLatLng);
+
+  adFormAddress.value = `${CITY_CENTER[0].toFixed(5)}, ${CITY_CENTER[1].toFixed(5)}`;
+}
 
 /**Добавляет похожие маркеры на карту */
 const addSimilarMarkers = (similarAdverts) => {
@@ -122,4 +128,4 @@ const addSimilarMarkers = (similarAdverts) => {
   });
 };
 
-export {disactivateForm, initMap, addSimilarMarkers};
+export {disactivateForm, initMap, addSimilarMarkers, resetMainMarkerLatLng};
