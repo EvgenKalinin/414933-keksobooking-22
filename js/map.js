@@ -28,6 +28,7 @@ const disactivateForm = () => {
 };
 
 let map;
+let mainMarker;
 /**
  * Добавляет карту и активирует форму
 */
@@ -67,7 +68,7 @@ const initMap = () => {
     iconAnchor: [26, 52],
   });
 
-  const mainMarker = L.marker(
+  mainMarker = L.marker(
     {
       lat: CITY_CENTER[0],
       lng: CITY_CENTER[1],
@@ -87,7 +88,18 @@ const initMap = () => {
     let currentY = evt.target.getLatLng().lng.toFixed(5);
     adFormAddress.value = `${currentX}, ${currentY}`;
   });
+
 };
+
+/**
+ * Возвращает главный маркер в исходное положение
+ */
+const resetMainMarkerLatLng = () => {
+  let newLatLng = new L.LatLng(CITY_CENTER[0], CITY_CENTER[1]);
+  mainMarker.setLatLng(newLatLng);
+
+  adFormAddress.value = `${CITY_CENTER[0].toFixed(5)}, ${CITY_CENTER[1].toFixed(5)}`;
+}
 
 /**Добавляет похожие маркеры на карту */
 const addSimilarMarkers = (similarAdverts) => {
@@ -116,4 +128,4 @@ const addSimilarMarkers = (similarAdverts) => {
   });
 };
 
-export {disactivateForm, initMap, addSimilarMarkers};
+export {disactivateForm, initMap, addSimilarMarkers, resetMainMarkerLatLng};

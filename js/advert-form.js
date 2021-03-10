@@ -1,9 +1,11 @@
+import {resetMainMarkerLatLng} from './map.js'
 const advertForm = document.querySelector('.ad-form');
+const resetFormButton = document.querySelector('.ad-form__reset');
 
 /**
  * Отправляет данные формы на сервер.
- * @param {*} onSuccess Выполнит в случае успеха.
- * @param {*} onError Выполнит если получит ошибку от сервера.
+ * @param {*} onSuccess Выполнит в случае успеха и сбросит форму.
+ * @param {*} onError Выполнит если получит ошибку от сервера и НЕ сбросит форму.
  */
 const setAdvertFormSubmit = (onSuccess, onError) => {
   advertForm.addEventListener('submit', (evt) => {
@@ -22,6 +24,7 @@ const setAdvertFormSubmit = (onSuccess, onError) => {
         if (response.ok) {
           onSuccess();
           advertForm.reset();
+          resetMainMarkerLatLng();
         } else {
           onError();
         }
@@ -31,5 +34,11 @@ const setAdvertFormSubmit = (onSuccess, onError) => {
       });
   });
 };
+
+resetFormButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  advertForm.reset();
+  resetMainMarkerLatLng();
+})
 
 export {setAdvertFormSubmit};

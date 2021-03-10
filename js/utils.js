@@ -76,7 +76,7 @@ const shuffleArray = (array) => {
 }
 
 /**
- * Показывает сообщение об успешной отправке формы и сбрасывает введенные параметры.
+ * Показывает сообщение об успешной отправке формы.
  */
 const showSuccessMessage = () => {
   const main = document.querySelector('main');
@@ -106,7 +106,7 @@ const showSuccessMessage = () => {
 };
 
 /**
- * Показывает сообщение о НЕ успешной отправке формы и НЕ сбрасывает введенные параметры.
+ * Показывает сообщение о НЕ успешной отправке формы.
  */
 const showErrorMessage = () => {
   const main = document.querySelector('main');
