@@ -1,5 +1,6 @@
 import {getRandom, getRandomCoordinates, getRandomArrayElement, getRandomArrayElements} from './utils.js'
 
+
 const TITLES = ['Хижина провидца', 'Преобразователь скелетов', 'Утопия драконов', 'Улей змиев', 'Мавзолей личий', 'Логово воров', 'Хижина мага', 'Чердак гарпий', 'Пещера циклопа'];
 const TYPES = ['palace', 'flat', 'house', 'bungalow'];
 const CHECK_TIME = ['12:00', '13:00', '14:00'];
@@ -43,5 +44,6 @@ const createAdvert = () => {
 const createAdverts = () => {
   return new Array(ADVERTS_LENGTH).fill(null).map(() => createAdvert());
 };
+
 
 export {createAdverts};

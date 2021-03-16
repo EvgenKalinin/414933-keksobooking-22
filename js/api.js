@@ -12,12 +12,33 @@ const getAdverts = (onSuccess, onError) => {
 
       throw new Error(`Что то пошло не так: ${response.status} ${response.statusText}`);
     })
-    .then((advertsTest) => {
-      onSuccess(advertsTest);
+    .then((adverts) => {
+      onSuccess(adverts);
     })
     .catch((err) => {
       onError(err);
     });
 }
 
-export {getAdverts}
+const sendFormData = (onSuccess, onError, evt) => {
+  fetch(
+    'https://22.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body: new FormData(evt.target),
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onError();
+      }
+    })
+    .catch(() => {
+      onError();
+    });
+}
+
+
+export {getAdverts, sendFormData}

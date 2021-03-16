@@ -10,6 +10,14 @@ const filtersFormSelects = document.querySelectorAll('.map__filters select');
 const filtersFormFieldset = document.querySelector('#housing-features');
 const CITY_CENTER = [35.686427, 139.753637];
 
+/**
+ * Устанавливает стартовые координаты
+ * @param {number} startCoordinates принимает массив из двух значений Lat и Lng
+ */
+const setStartAddress = (startCoordinates) => {
+  adFormAddress.value = `${startCoordinates[0].toFixed(5)}, ${startCoordinates[1].toFixed(5)}`;
+};
+
 /**Деактивирует форму */
 const disactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
@@ -81,7 +89,7 @@ const initMap = () => {
 
   mainMarker.addTo(map);
 
-  adFormAddress.value = `${CITY_CENTER[0].toFixed(5)}, ${CITY_CENTER[1].toFixed(5)}`;
+  setStartAddress(CITY_CENTER);
 
   mainMarker.on('moveend', (evt) => {
     let currentX = evt.target.getLatLng().lat.toFixed(5);
@@ -98,7 +106,7 @@ const resetMainMarkerLatLng = () => {
   let newLatLng = new L.LatLng(CITY_CENTER[0], CITY_CENTER[1]);
   mainMarker.setLatLng(newLatLng);
 
-  adFormAddress.value = `${CITY_CENTER[0].toFixed(5)}, ${CITY_CENTER[1].toFixed(5)}`;
+  setStartAddress(CITY_CENTER);
 }
 
 /**Добавляет похожие маркеры на карту */
@@ -127,5 +135,6 @@ const addSimilarMarkers = (similarAdverts) => {
       );
   });
 };
+
 
 export {disactivateForm, initMap, addSimilarMarkers, resetMainMarkerLatLng};

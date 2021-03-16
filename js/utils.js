@@ -158,4 +158,5 @@ const showAlert = (message) => {
   }, MESSAGE_SHOW_TIME);
 }
 
+
 export {getRandom, getRandomCoordinates, getRandomArrayElement, getRandomArrayElements, showSuccessMessage, showErrorMessage, showAlert};

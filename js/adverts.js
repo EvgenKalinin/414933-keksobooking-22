@@ -125,4 +125,5 @@ const createCards = (similarAdvert) => {
 //   advertsList.appendChild(card);
 // };
 
+
 export {createCards, createCard/**, addCard */};
